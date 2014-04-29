@@ -1,0 +1,180 @@
+CREATE TABLE usuario (
+    id_usuario INT, 
+    rut        VARCHAR(20) UNIQUE NOT NULL,
+    contrasena VARCHAR(20) NOT NULL,
+    nombre     VARCHAR(20),
+    tipo       VARCHAR(20),
+    comision   INT,
+    constraint  usuario_pk primary key (id_usuario)
+); 
+
+CREATE SEQUENCE IdUser
+START WITH 1
+INCREMENT BY 1
+CACHE 100;
+
+DELIMITER $$
+CREATE OR REPLACE TRIGGER TRIG_USER
+BEFORE INSERT ON USUARIO
+REFERENCING NEW AS NEW
+FOR EACH ROW
+BEGIN
+SELECT IdUser.NEXTVAL INTO :NEW.id_usuario FROM DUAL;
+END;
+$$
+DELIMITER ;
+
+CREATE table cliente (
+    id_cliente INT, 
+    rut        VARCHAR(20) UNIQUE NOT NULL,
+    nombre     VARCHAR(20),
+    constraint  cliente_pk primary key (id_cliente)
+);
+
+CREATE SEQUENCE IdClient
+START WITH 1
+INCREMENT BY 1;
+
+DELIMITER $$
+CREATE OR REPLACE TRIGGER TRIG_CLIENT
+BEFORE INSERT ON CLIENTE
+REFERENCING NEW AS NEW
+FOR EACH ROW
+BEGIN
+SELECT IdClient.NEXTVAL INTO :NEW.id_cliente FROM DUAL;
+END;
+$$
+DELIMITER ;
+
+CREATE TABLE venta(
+    id_venta    INT, 
+    id_usuario    INT,
+    id_cliente    INT,
+    monto_total INT,
+    fecha       DATE,
+    "TIME"        TIMESTAMP,
+    CONSTRAINT usuario_fk 
+    FOREIGN KEY (id_usuario) 
+    REFERENCES usuario(id_usuario),
+    CONSTRAINT cliente_fk 
+    FOREIGN KEY (id_cliente) 
+    REFERENCES cliente(id_cliente),
+    CONSTRAINT venta_pk PRIMARY KEY(id_venta) ENABLE  
+);
+
+
+
+CREATE TABLE compra (
+    id_compra   INT, 
+    monto_total INT NOT NULL,
+    fecha       DATE,
+    hora        TIMESTAMP,
+    constraint  compra_pk primary key (id_compra)
+);
+
+CREATE SEQUENCE IdBuy
+START WITH 1
+INCREMENT BY 1;
+
+DELIMITER $$
+CREATE OR REPLACE TRIGGER TRIG_BUY
+BEFORE INSERT ON COMPRA
+REFERENCING NEW AS NEW
+FOR EACH ROW
+BEGIN
+SELECT IdBuy.NEXTVAL INTO :NEW.id_compra FROM DUAL;
+END;
+$$
+DELIMITER ;
+
+
+
+CREATE TABLE producto (
+    id_producto INT, 
+    stock       INT NOT NULL,
+    descripcion VARCHAR(20),
+    categoria   VARCHAR(20),
+    precio      INT,
+    constraint  producto_pk primary key (id_producto)
+);
+
+
+CREATE SEQUENCE IdProduct
+START WITH 1
+INCREMENT BY 1;
+
+DELIMITER $$
+CREATE OR REPLACE TRIGGER TRIG_PROD
+BEFORE INSERT ON PRODUCTO
+REFERENCING NEW AS NEW
+FOR EACH ROW
+BEGIN
+SELECT IdProduct.NEXTVAL INTO :NEW.id_producto FROM DUAL;
+END;
+$$
+DELIMITER ;
+
+
+
+CREATE TABLE detalle_venta(
+    id_detalle      INT, 
+    id_venta        INT,
+    id_producto     INT,
+    cantidad        INT,
+
+    CONSTRAINT venta_fk 
+    FOREIGN KEY (id_venta) 
+    REFERENCES venta(id_venta),
+    CONSTRAINT producto_fk 
+    FOREIGN KEY (id_producto) 
+    REFERENCES producto(id_producto),
+    CONSTRAINT detalle_venta_pk PRIMARY KEY(id_detalle) ENABLE  
+);
+
+CREATE SEQUENCE IdDetalleVenta
+START WITH 1
+INCREMENT BY 1;
+
+DELIMITER $$
+CREATE OR REPLACE TRIGGER TRIG_DETALLE_SELL
+BEFORE INSERT ON DETALLE_VENTA
+REFERENCING NEW AS NEW
+FOR EACH ROW
+BEGIN
+SELECT IdDetalleVenta.NEXTVAL INTO :NEW."id_detalle" FROM DUAL;
+END;
+$$
+DELIMITER ;
+
+
+
+CREATE TABLE detalle_compra(
+    id_detalle      INT, 
+    id_compra       INT,
+    id_producto     INT,
+    cantidad        INT,
+    precio          INT,
+
+    CONSTRAINT compra_fk 
+    FOREIGN KEY (id_compra) 
+    REFERENCES compra(id_compra),
+    CONSTRAINT producto2_fk 
+    FOREIGN KEY (id_producto) 
+    REFERENCES producto(id_producto),
+    CONSTRAINT detalle_compra_pk PRIMARY KEY(id_detalle) ENABLE  
+);
+
+CREATE SEQUENCE IdDetalleCompra
+START WITH 1
+INCREMENT BY 1;
+
+DELIMITER $$
+CREATE OR REPLACE TRIGGER TRIG_DETALLE_BUY
+BEFORE INSERT ON DETALLE_COMPRA
+REFERENCING NEW AS NEW
+FOR EACH ROW
+BEGIN
+SELECT IdDetalleCompra.NEXTVAL INTO :NEW.id_detalle FROM DUAL;
+END;
+$$
+DELIMITER ;
