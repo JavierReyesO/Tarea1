@@ -11,9 +11,6 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Ingresa </title>
     </head>
-    <h> <%=session.getAttribute("userid")%><a href='logout.jsp'>Log out</a></h>
-    <h></h>
-    <h><a href='administrador.jsp'>Volver a Menu</a></h>
     <body>
         <form method="post" action="ingvendedor.jsp">
             <center>   
@@ -42,7 +39,7 @@
                         <td><input type="password" name="contraRepe" value="" /></td>
                     </tr>
                     <tr>
-                        <td><input tyt" value="Reset" /></td>
+                        <td><input type="reset" value="Reset" /></td>
                         <td><input type="submit" value="Finalizar" /></td>
                     </tr>
                 </tbody>  

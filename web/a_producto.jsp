@@ -1,15 +1,17 @@
 <%-- 
-    Document   : cliente
-    Created on : 25-04-2014, 05:21:51 PM
+    Document   : a_producto
+    Created on : 30-04-2014, 01:48:02 AM
     Author     : Javier
 --%>
 
 <%@ page import ="java.sql.*" %>
 <%
-    session.setAttribute("userid", null);
-    session.setAttribute("pwd", null);
-    String name = request.getParameter("nombre");
-    String rut = request.getParameter("rut");
+    String Cod = request.getParameter("cod");
+    String Nombre = request.getParameter("nombre");
+    String Desc = request.getParameter("desc");
+    String Cate = request.getParameter("cate");
+    String Cant = request.getParameter("cant");
+    String Price = request.getParameter("price");
     Statement st = null;
     Class.forName("oracle.jdbc.OracleDriver");
     Connection con = DriverManager.getConnection("jdbc:oracle:thin:@127.0.0.1:1521:XE",
@@ -17,7 +19,7 @@
     st = con.createStatement();
     int i = 0;
     
-    i = st.executeUpdate("INSERT INTO cliente(rut,nombre) values ('" + rut + "','" + name + "')");
+    i = st.executeUpdate("INSERT INTO producto values ('"+ Cod +"','" + Cant + "','" + Desc + "','" + Cate + "','" + Price + "','" + Nombre + "')");
      
     if (i > 0) {
         
@@ -27,3 +29,4 @@
         out.print("Ingreso Fallido"+"<a href='vendedor.jsp'>Reintentar</a>");
     }
 %>
+
