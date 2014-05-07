@@ -30,6 +30,7 @@
                         <td>Rut (12.345.678-9)</td>
                         <td><input type="text" name="rut" value="" /></td>
                     </tr>
+                    <tr>
                         <td><input type="reset" value="Reset" /></td>
                         <td><input type="submit" value="Finalizar" /></td>
                     </tr>

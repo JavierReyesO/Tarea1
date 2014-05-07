@@ -6,9 +6,6 @@
 
 <%@ page import ="java.sql.*" %>
 <%
-    session.setAttribute("userid", null);
-    session.setAttribute("pwd", null);
-    String buscado = request.getParameter("buscar");
     Statement st = null;
     Class.forName("oracle.jdbc.OracleDriver");
     Connection con = DriverManager.getConnection("jdbc:oracle:thin:@127.0.0.1:1521:XE",
@@ -28,6 +25,9 @@
         <title>Administrar Productos</title>
     </head>
     <body>
+        <form method="post" action="modificarproducto.jsp">
+        <h3>Administrar Productos</h3>
+        <h4><input type="text" name="buscar" value="" />
     <table border="1">
         <thead>
             <tr>
@@ -39,6 +39,7 @@
         </thead>
         <tbody>
             <%
+               int i = 0;
                while(Productos.next()){
                    Codigo = Productos.getString("id_producto");
                    Nombre = Productos.getString("nombre");
@@ -48,13 +49,15 @@
                 <td><%= Codigo%></td>
                 <td><%= Nombre%></td>
                 <td><%= Cantidad%></td>
-                <td><input type="checkbox" name="Select" value="ON" /></td>
+                <td><input type="checkbox" name=ProdCode id="CheckBox<%= ++i %>" value=<%= Codigo%> /></td>
             </tr>
             <% } %>
         </tbody>
     </table>
         <a href="agregarproducto.jsp"> 
             <button type="button" value="agregar" name="agregar">Agregar </button></a>
-        <input type="submit" value="modificar" name="modificar" />
+        
+            <button type="submit" value="Modificar" name="modificar" >Modificar</button>
+        </form>
     </body>
 </html>

@@ -29,4 +29,3 @@
         out.print("Ingreso Fallido"+"<a href='vendedor.jsp'>Reintentar</a>");
     }
 %>
-

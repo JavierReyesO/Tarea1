@@ -6,8 +6,6 @@
 
 <%@ page import ="java.sql.*" %>
 <%
-    session.setAttribute("userid", null);
-    session.setAttribute("pwd", null);
     String name = request.getParameter("nombre");
     String rut = request.getParameter("rut");
     Statement st = null;
