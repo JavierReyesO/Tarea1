@@ -19,11 +19,12 @@
     rs = st.executeQuery("SELECT * FROM BD.USUARIO WHERE NOMBRE='"+userid+"' AND CONTRASENA='"+pwd+"'");
     if (rs.next()) {
         session.setAttribute("userid", userid);
-        String dbTipo = rs.getString("TIPO");
-        if(type1.equals(dbTipo)){
+        String Tipo = rs.getString("TIPO");
+        session.setAttribute("tipo", Tipo);
+        if(type1.equals(Tipo)){
             response.sendRedirect("administrador.jsp");
         }
-        if(type2.equals(dbTipo)){
+        if(type2.equals(Tipo)){
             response.sendRedirect("vendedor.jsp");
         }
     } else {

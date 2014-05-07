@@ -12,6 +12,9 @@
         <title>Ingresa </title>
     </head>
     <body>
+        <h5><%=session.getAttribute("userid")%> <a href='logout.jsp'>Log out</a> </h5>
+        <h6></h6>
+        <h5><a href='administrador.jsp'>Volver al Menu</a></h5>
         <form method="post" action="ingvendedor.jsp">
             <center>   
             <table border="1" width="30%" cellpadding="5">

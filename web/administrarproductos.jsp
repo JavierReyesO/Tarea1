@@ -25,6 +25,9 @@
         <title>Administrar Productos</title>
     </head>
     <body>
+        <h5><%=session.getAttribute("userid")%> <a href='logout.jsp'>Log out</a> </h5>
+        <h6></h6>
+        <h5><a href='administrador.jsp'>Volver al Menu</a></h5>
         <form method="post" action="modificarproducto.jsp">
         <h3>Administrar Productos</h3>
         <h4><input type="text" name="buscar" value="" />

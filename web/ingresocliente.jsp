@@ -12,7 +12,18 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Ingresar Cliente</title>
     </head>
-    <body>
+    <body>      
+    <%
+    if("Administrador".equals(session.getAttribute("tipo"))){    
+    %>   
+        <h5><a href='administrador.jsp'>Volver al Menu</a></h5>
+    <%}%>
+    <%
+    if("Vendedor".equals(session.getAttribute("tipo"))){    
+    %>   
+        <h5><a href='vendedor.jsp'>Volver al Menu</a></h5>
+    <%}%>
+        <h5><%=session.getAttribute("userid")%> <a href='logout.jsp'>Log out</a> </h5>        
         <form method="post" action="cliente.jsp">
             <center>
             <table border="1" width="30%" cellpadding="5">
