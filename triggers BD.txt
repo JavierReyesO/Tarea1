@@ -1,0 +1,12 @@
+DELIMITER $$
+CREATE OR REPLACE TRIGGER TRIGGER_COMPRAS 
+AFTER INSERT ON detalle_compra
+FOR EACH ROW
+DECLARE nuevostock NUMBER;
+BEGIN 
+SELECT stock INTO nuevostock FROM producto WHERE id_producto = :NEW.id_producto;
+nuevostock := nuevostock + :NEW.cantidad;
+UPDATE producto SET stock = nuevostock WHERE id_producto = :NEW.id_producto;
+END;
+$$
+DELIMITER ;
