@@ -13,6 +13,17 @@
         <title>Ingresar Venta</title>
     </head>
     <body>
+        <%
+    if("Administrador".equals(session.getAttribute("tipo"))){    
+    %>   
+        <h5><a href='administrador.jsp'>Volver al Menu</a></h5>
+    <%}%>
+    <%
+    if("Vendedor".equals(session.getAttribute("tipo"))){    
+    %>   
+        <h5><a href='vendedor.jsp'>Volver al Menu</a></h5>
+    <%}%>
+        <h5><%=session.getAttribute("userid")%> <a href='logout.jsp'>Log out</a> </h5> 
         <form method="post" action="venta.jsp">
             <center>
             <table border="1" width="30%" cellpadding="5">

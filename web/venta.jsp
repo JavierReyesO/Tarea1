@@ -3,15 +3,14 @@
     Created on : 25-04-2014, 05:21:35 PM
     Author     : Javier
 --%>
-
-
 <%@ page import="java.io.*"%>
 <%@ page import="java.sql.*" %>
 <%@ page import="java.util.Date" %>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <%
     String nombre = (String) session.getAttribute("userid");
+    String name;
+    String rut;
     java.util.Date utilDate = new java.util.Date(); //fecha actual
     long lnMilisegundos = utilDate.getTime();
     java.sql.Date date = new java.sql.Date(lnMilisegundos);
@@ -32,11 +31,22 @@
         try {
             Class.forName("oracle.jdbc.OracleDriver");
             con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE", "BD", "BD");
-
+            
+            Statement st0 = con.createStatement();
             Statement st1 = con.createStatement();
             Statement st2 = con.createStatement();
             Statement st3 = con.createStatement();
             Statement st4 = con.createStatement();
+            
+            
+            String consulta0 = "select * from cliente";
+            ResultSet clientes = st0.executeQuery(consulta0);
+            
+            while(clientes.next()){
+                name  = clientes.getString("nombre");
+                rut = clientes.getString("rut");
+            }
+            
 
             String consulta1 = "select max(id_venta) from venta";
             ResultSet max_id_sell = st1.executeQuery(consulta1);

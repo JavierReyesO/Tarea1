@@ -1,20 +1,21 @@
 <%-- 
-    Document   : VerVentasACliente
-    Created on : 25-04-2014, 04:57:23 PM
+    Document   : mostrarventas
+    Created on : 08-05-2014, 11:31:37 PM
     Author     : Javier
 --%>
-
 <%@ page import ="java.sql.*" %>
 <%
+    String Codigo = request.getParameter("ID");
     Statement st = null;
     Class.forName("oracle.jdbc.OracleDriver");
     Connection con = DriverManager.getConnection("jdbc:oracle:thin:@127.0.0.1:1521:XE",
             "BD", "BD");
     st = con.createStatement();
-    ResultSet Cliente = st.executeQuery("SELECT * FROM cliente");
-    String RUT;    
-    String NombreCliente;
-    String ID;
+    ResultSet Venta = st.executeQuery("SELECT * FROM VentasClientes WHERE id_cliente LIKE '"+Codigo+"'");
+    String RUT;
+    String IdProducto;
+    String NombreProducto;
+        
 %>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -22,41 +23,37 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Ver Clientes</title>
+        <title>Ver Ventas</title>
     </head>
     <body>
         <h5><%=session.getAttribute("userid")%> <a href='logout.jsp'>Log out</a> </h5>
         <h6></h6>
         <h5><a href='administrador.jsp'>Volver al Menu</a></h5>
-        <form method="post" action="mostrarventas.jsp">
-            <h3>Ver ventas a clientes</h3>
+        <h3>Ver Ventas</h3>
     <table border="1">
         <thead>
             <tr>
-                <th>Rut</th>
+                <th>Código</th>
                 <th>Nombre</th>
-                <th>Seleción</th>
+                <th>Rut Cliente</th>
             </tr>
         </thead>
         <tbody>
             <%
                int i = 0;
-               while(Cliente.next()){
-                   ID = Cliente.getString("id_cliente");
-                   RUT = Cliente.getString("rut");
-                   NombreCliente = Cliente.getString("nombre");
+               while(Venta.next()){
+                   RUT = Venta.getString("rut");
+                   IdProducto = Venta.getString("id_producto");
+                   NombreProducto = Venta.getString("nombre");                   
             %>
             <tr>
+                <td><%= IdProducto%></td>
+                <td><%= NombreProducto%></td>
                 <td><%= RUT%></td>
-                <td><%= NombreCliente%></td>
-                
-                <td><input type="checkbox" name=ID id="Code<%= i++%>" value=<%= ID%>/></td>
             </tr>
             <% } %>
         </tbody>
     </table>
-            <button type="submit" value="Ver" name="Ver">Ver</button></a>
-        </form>
     </body>
 </html>
 
