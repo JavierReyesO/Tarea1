@@ -49,7 +49,7 @@ DELIMITER ;
 CREATE TABLE venta(
     id_venta    INT, 
     id_usuario    INT,
-    id_cliente    INT,
+    id_cliente2    INT,
     monto_total INT,
     fecha       DATE,
     "TIME"        TIMESTAMP,
@@ -57,7 +57,7 @@ CREATE TABLE venta(
     FOREIGN KEY (id_usuario) 
     REFERENCES usuario(id_usuario),
     CONSTRAINT cliente_fk 
-    FOREIGN KEY (id_cliente) 
+    FOREIGN KEY (id_cliente2) 
     REFERENCES cliente(id_cliente),
     CONSTRAINT venta_pk PRIMARY KEY(id_venta) ENABLE  
 );
