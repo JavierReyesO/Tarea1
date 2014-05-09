@@ -1,0 +1,12 @@
+CREATE or REPLACE VIEW VENTAS_CLIENTES
+AS
+SELECT V.id_venta, V.id_cliente2, V.id_usuario, DETV.cantidad, PR.id_producto, CL.nombre, CL.id_cliente, CL.rut
+FROM venta V, detalle_venta DETV, producto PR, cliente CL
+WHERE V.id_venta = DETV.id_venta2 and DETV.id_producto2 = PR.id_producto and V.id_cliente2 = CL.id_cliente
+
+
+CREATE or REPLACE VIEW VentasVendedor
+AS
+SELECT  V.id_venta, DETV.id_detalle, DETV.cantidad, P.id_producto, U.nombre, U.rut, U.id_usuario
+FROM VENTA V, DETALLE_VENTA DETV , PRODUCTO P, USUARIO U
+WHERE V.ID_VENTA = DETV.ID_VENTA2 and DETV.ID_PRODUCTO2 = P.ID_PRODUCTO and U.ID_USUARIO = U.ID_USUARIO

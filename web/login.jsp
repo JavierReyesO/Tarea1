@@ -20,6 +20,8 @@
     if (rs.next()) {
         session.setAttribute("userid", userid);
         String Tipo = rs.getString("TIPO");
+        String ID = rs.getString("id_usuario");
+        session.setAttribute("ID", ID);
         session.setAttribute("tipo", Tipo);
         if(type1.equals(Tipo)){
             response.sendRedirect("administrador.jsp");

@@ -10,6 +10,7 @@
     int PCodigo = Integer.valueOf((String)session.getAttribute("Code"));
     String Desc = request.getParameter("desc");
     String Cat = request.getParameter("cat");
+    String nombre = String.valueOf(session.getAttribute("userid"));
     int Precio = Integer.parseInt(request.getParameter("price"));
     Statement st = null;
     Class.forName("oracle.jdbc.OracleDriver");
